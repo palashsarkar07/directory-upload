@@ -1,0 +1,34 @@
+{
+  "name": "directory-upload",
+  "version": "1.0.0",
+  "description": "For Uploading Directory",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "compile": "tsc && cp src/public/index.html build/src/public/index.html",
+    "start": "node build/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/palashsarkar07/directory-upload.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/palashsarkar07/directory-upload/issues"
+  },
+  "homepage": "https://github.com/palashsarkar07/directory-upload#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.9.3",
+    "tsx": "^4.0.0",
+    "typescript": "^6.0.3"
+  }
+}
