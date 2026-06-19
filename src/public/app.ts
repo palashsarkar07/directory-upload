@@ -60,7 +60,7 @@ async function upload(): Promise<void> {
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/api/projects/${projectId}/uploads`,
+      `${API_BASE_URL}/projects/${projectId}/uploads`,
       {
         method: "POST",
         headers: {

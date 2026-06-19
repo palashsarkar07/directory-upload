@@ -52,5 +52,5 @@ http://localhost:5500
 The selected directory will be uploaded to:
 
 ```http
-POST /api/projects/:projectId/uploads
+POST /projects/:projectId/uploads
 ```
