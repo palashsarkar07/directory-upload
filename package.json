@@ -4,9 +4,8 @@
   "description": "For Uploading Directory",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx src/server.ts",
     "compile": "tsc && cp src/public/index.html build/src/public/index.html",
-    "start": "node build/server.js",
+    "start": "node build/src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

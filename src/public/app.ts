@@ -10,34 +10,35 @@ export {};
 
 const API_BASE_URL = window.APP_CONFIG.API_BASE_URL;
 
-const folderInput = document.getElementById(
-  'folderInput'
-) as HTMLInputElement;
+const folderInput = document.getElementById("folderInput") as HTMLInputElement;
 
-const projectIdInput = document.getElementById(
-  'projectId'
-) as HTMLInputElement;
+const projectIdInput = document.getElementById("projectId") as HTMLInputElement;
 
-const statusElement = document.getElementById(
-  'status'
-) as HTMLParagraphElement;
+const tokenInput = document.getElementById("token") as HTMLInputElement;
 
-const uploadButton = document.getElementById(
-  'uploadBtn'
-) as HTMLButtonElement;
+const statusElement = document.getElementById("status") as HTMLParagraphElement;
 
-uploadButton.addEventListener('click', upload);
+const uploadButton = document.getElementById("uploadBtn") as HTMLButtonElement;
+
+uploadButton.addEventListener("click", upload);
 
 async function upload(): Promise<void> {
   if (!folderInput.files?.length) {
-    statusElement.textContent = 'Please select a folder.';
+    statusElement.textContent = "Please select a folder.";
     return;
   }
 
   const projectId = projectIdInput.value.trim();
 
   if (!projectId) {
-    statusElement.textContent = 'Please enter a project ID.';
+    statusElement.textContent = "Please enter a project ID.";
+    return;
+  }
+
+  const token = tokenInput.value.trim();
+
+  if (!token) {
+    statusElement.textContent = "Please enter a bearer token.";
     return;
   }
 
@@ -45,21 +46,28 @@ async function upload(): Promise<void> {
 
   for (const file of Array.from(folderInput.files)) {
     formData.append(
-      'files',
+      "files",
       file,
-      (file as File & { webkitRelativePath: string }).webkitRelativePath
+      (
+        file as File & {
+          webkitRelativePath: string;
+        }
+      ).webkitRelativePath,
     );
   }
 
-  statusElement.textContent = 'Uploading...';
+  statusElement.textContent = "Uploading...";
 
   try {
     const response = await fetch(
       `${API_BASE_URL}/api/projects/${projectId}/uploads`,
       {
-        method: 'POST',
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         body: formData,
-      }
+      },
     );
 
     const data = await response.json();
@@ -67,7 +75,7 @@ async function upload(): Promise<void> {
     if (response.ok) {
       statusElement.textContent = `Upload successful! uploadId: ${data.uploadId}`;
     } else {
-      statusElement.textContent = `Upload failed: ${JSON.stringify(data)}`;
+      statusElement.textContent = `Upload failed: ${JSON.stringify(data, null, 2)}`;
     }
   } catch (error) {
     statusElement.textContent = `Error: ${(error as Error).message}`;

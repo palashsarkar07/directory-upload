@@ -1,27 +1,36 @@
 const API_BASE_URL = window.APP_CONFIG.API_BASE_URL;
-const folderInput = document.getElementById('folderInput');
-const projectIdInput = document.getElementById('projectId');
-const statusElement = document.getElementById('status');
-const uploadButton = document.getElementById('uploadBtn');
-uploadButton.addEventListener('click', upload);
+const folderInput = document.getElementById("folderInput");
+const projectIdInput = document.getElementById("projectId");
+const tokenInput = document.getElementById("token");
+const statusElement = document.getElementById("status");
+const uploadButton = document.getElementById("uploadBtn");
+uploadButton.addEventListener("click", upload);
 async function upload() {
     if (!folderInput.files?.length) {
-        statusElement.textContent = 'Please select a folder.';
+        statusElement.textContent = "Please select a folder.";
         return;
     }
     const projectId = projectIdInput.value.trim();
     if (!projectId) {
-        statusElement.textContent = 'Please enter a project ID.';
+        statusElement.textContent = "Please enter a project ID.";
+        return;
+    }
+    const token = tokenInput.value.trim();
+    if (!token) {
+        statusElement.textContent = "Please enter a bearer token.";
         return;
     }
     const formData = new FormData();
     for (const file of Array.from(folderInput.files)) {
-        formData.append('files', file, file.webkitRelativePath);
+        formData.append("files", file, file.webkitRelativePath);
     }
-    statusElement.textContent = 'Uploading...';
+    statusElement.textContent = "Uploading...";
     try {
         const response = await fetch(`${API_BASE_URL}/api/projects/${projectId}/uploads`, {
-            method: 'POST',
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
             body: formData,
         });
         const data = await response.json();
@@ -29,7 +38,7 @@ async function upload() {
             statusElement.textContent = `Upload successful! uploadId: ${data.uploadId}`;
         }
         else {
-            statusElement.textContent = `Upload failed: ${JSON.stringify(data)}`;
+            statusElement.textContent = `Upload failed: ${JSON.stringify(data, null, 2)}`;
         }
     }
     catch (error) {

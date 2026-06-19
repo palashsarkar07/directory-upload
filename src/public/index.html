@@ -2,26 +2,45 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Upload Directory</title>
+    <title>Directory Upload</title>
   </head>
   <body>
-    <h2>Upload Directory</h2>
-
-    <input type="file" id="folderInput" webkitdirectory multiple />
-    <br /><br />
+    <h2>Directory Upload</h2>
 
     <label>
       Project ID:
-      <input type="text" id="projectId" placeholder="project-uuid" />
+      <input type="text" id="projectId" placeholder="Project UUID" />
     </label>
 
-    <br /><br />
+    <br />
+    <br />
 
-    <button id="uploadBtn">Upload</button>
+    <label>
+      Bearer Token:
+      <input
+        type="text"
+        id="token"
+        placeholder="JWT Token"
+        style="width: 500px"
+      />
+    </label>
 
-    <p id="status"></p>
+    <br />
+    <br />
+
+    <input type="file" id="folderInput" webkitdirectory multiple />
+
+    <br />
+    <br />
+
+    <button id="uploadBtn">Upload Directory</button>
+
+    <br />
+    <br />
+
+    <pre id="status"></pre>
 
     <script src="/config.js"></script>
-    <script src="/app.js"></script>
+    <script type="module" src="/app.js"></script>
   </body>
 </html>
