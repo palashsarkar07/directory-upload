@@ -45,15 +45,10 @@ async function upload(): Promise<void> {
   const formData = new FormData();
 
   for (const file of Array.from(folderInput.files)) {
-    formData.append(
-      "files",
-      file,
-      (
-        file as File & {
-          webkitRelativePath: string;
-        }
-      ).webkitRelativePath,
-    );
+    console.log("name:", file.name, "relativePath:", file.webkitRelativePath);
+
+    formData.append("files", file, file.webkitRelativePath);
+    formData.append("paths", file.webkitRelativePath);
   }
 
   statusElement.textContent = "Uploading...";
