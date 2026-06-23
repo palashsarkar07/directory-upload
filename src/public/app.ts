@@ -14,6 +14,8 @@ const folderInput = document.getElementById("folderInput") as HTMLInputElement;
 
 const projectIdInput = document.getElementById("projectId") as HTMLInputElement;
 
+const userIdInput = document.getElementById("userId") as HTMLInputElement;
+
 const tokenInput = document.getElementById("token") as HTMLInputElement;
 
 const statusElement = document.getElementById("status") as HTMLParagraphElement;
@@ -54,13 +56,19 @@ async function upload(): Promise<void> {
   statusElement.textContent = "Uploading...";
 
   try {
+    const userId = userIdInput.value.trim();
+    const headers: Record<string, string> = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    if (userId) {
+      headers["x-user-id"] = userId;
+    }
     const response = await fetch(
       `${API_BASE_URL}/projects/${projectId}/uploads`,
       {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers,
         body: formData,
       },
     );
