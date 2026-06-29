@@ -15,7 +15,7 @@ Create a `.env` file:
 
 ```env
 PORT=5500
-API_BASE_URL=http://localhost:8000
+API_BASE_URL=http://localhost:8081/api
 ```
 
 ## Install Dependencies
@@ -52,5 +52,5 @@ http://localhost:5500
 The selected directory will be uploaded to:
 
 ```http
-POST /projects/:projectId/uploads
+POST /api/projects/:projectId/uploads
 ```

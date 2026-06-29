@@ -37,13 +37,6 @@ async function upload(): Promise<void> {
     return;
   }
 
-  const token = tokenInput.value.trim();
-
-  if (!token) {
-    statusElement.textContent = "Please enter a bearer token.";
-    return;
-  }
-
   const formData = new FormData();
 
   for (const file of Array.from(folderInput.files)) {
@@ -56,6 +49,7 @@ async function upload(): Promise<void> {
   statusElement.textContent = "Uploading...";
 
   try {
+    const token = tokenInput.value.trim();
     const userId = userIdInput.value.trim();
     const headers: Record<string, string> = {
       Authorization: `Bearer ${token}`,
